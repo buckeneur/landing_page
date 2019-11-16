@@ -1,14 +1,37 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
+var MongoClient = require('mongodb').MongoClient;
+var objectId = require('mongodb').ObjectID;
 var logger = require('morgan');
 var models = require('./models');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+const CONNECTION_URL = "mongodb+srv://admin:mjvx4KdK6XHEPKbl@cluster0-4c7hh.mongodb.net/test?retryWrites=true&w=majority";
+const DATABASE_NAME = "webXpec";
+
 var app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// establish database connection
+var database, collection;
+
+app.listen(3000, () => {
+  MongoClient.connect(CONNECTION_URL, { useNewUrlParser: true }, (error, client) => {
+    if(error) {
+      throw error;
+    }
+    database = client.db(DATABASE_NAME);
+    collection = database.collection("users");
+    console.log("Connected to `" + DATABASE_NAME + "`!");
+  });
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -39,8 +62,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-models.sequelize.sync().then(function() {
-  console.log("DB Sync'd up");  
-});
+// models.sequelize.sync().then(function() {
+//   console.log("DB Sync'd up");  
+// });
 
 module.exports = app;
