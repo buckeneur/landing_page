@@ -7,6 +7,7 @@ var MongoClient = require('mongodb').MongoClient;
 var objectId = require('mongodb').ObjectID;
 var logger = require('morgan');
 var models = require('./models');
+const mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -22,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // establish database connection
 var database, collection;
 
-app.listen(3000, () => {
+app.listen(3002, () => {
   MongoClient.connect(CONNECTION_URL, { useNewUrlParser: true }, (error, client) => {
     if(error) {
       throw error;
@@ -61,6 +62,22 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.post('/', function(req, res){
+  var userName = req.body.userName;
+  db.collection('user').insertOne({ username: userName });
+  res.render('index')
+});
+
+app.get("/users", (req, res) => {
+  collection.find({}).toArray((error, result) => {
+    if(error) {
+      return this.response.status(500).send(error);
+    }
+    this.response.send(result);
+  });
+});
+
 
 // models.sequelize.sync().then(function() {
 //   console.log("DB Sync'd up");  
