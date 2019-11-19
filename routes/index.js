@@ -2,6 +2,18 @@ var express = require('express');
 var router = express.Router();
 // const mysql = require('mysql2');
 
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  res.render('index', { title: 'Express' });
+});
+
+router.post('/addition', function(req, res, next) {
+  const newAdd = {
+    first_name: req.body.first_name,
+    last_name: req.body.last_name
+  };
+});
+
 // var connection = mysql.createConnection({
 //   host: 'localhost',
 //   user: 'root',
@@ -16,10 +28,5 @@ var router = express.Router();
 //   }
 //   console.log('Yay! You are connected to the database!');
 // })
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
 
 module.exports = router;

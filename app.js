@@ -4,8 +4,8 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var MongoClient = require('mongodb').MongoClient;
-var objectId = require('mongodb').ObjectID;
 var logger = require('morgan');
+var objectId = require('mongodb').ObjectID;
 var models = require('./models');
 const mongoose = require('mongoose');
 
@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var database, collection;
 
 app.listen(3002, () => {
-  MongoClient.connect(CONNECTION_URL, { useNewUrlParser: true }, (error, client) => {
+  MongoClient.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true }, (error, client) => {
     if(error) {
       throw error;
     }
@@ -63,9 +63,9 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.post('/', function(req, res){
+app.post('/addition', function(req, res){
   var userName = req.body.userName;
-  db.collection('user').insertOne({ username: userName });
+  db.collection('users').insertOne({ username: userName });
   res.render('index')
 });
 
