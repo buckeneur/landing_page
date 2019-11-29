@@ -1,18 +1,18 @@
 var express = require('express');
 var router = express.Router();
-// const mysql = require('mysql2');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.redirect('/landingpage');
 });
 
-router.post('/addition', function(req, res, next) {
-  const newAdd = {
-    first_name: req.body.first_name,
-    last_name: req.body.last_name
-  };
-});
+// router.post('/addition', function(req, res, next) {
+//   const newAdd = {
+//     first_name: req.body.first_name,
+//     last_name: req.body.last_name
+//   };
+//   res.json(newAdd);
+// });
 
 // var connection = mysql.createConnection({
 //   host: 'localhost',

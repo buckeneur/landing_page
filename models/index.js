@@ -2,6 +2,10 @@
 
 const db = {};
 
+
+
+module.exports = db;
+
 // const fs = require('fs');
 // const path = require('path');
 // const basename = path.basename(__filename);
@@ -34,5 +38,3 @@ const db = {};
 
 // db.sequelize = sequelize;
 // db.Sequelize = Sequelize;
-
-module.exports = db;
