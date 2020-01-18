@@ -1,5 +1,5 @@
 <p>landing-page-form works!</p>
-<mat-vertical-stepper #stepper>
+<mat-horizontal-stepper #stepper>
     <mat-step [stepControl]="firstFormGroup">
         <form [formGroup]="firstFormGroup">
             <ng-template matStepLabel>Label 1</ng-template>
@@ -12,4 +12,16 @@
             </div>
         </form>
     </mat-step>
-</mat-vertical-stepper>
+    <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Label 2</ng-template>
+            <mat-form-field>
+                <input matInput placeholder="Field value here"
+                formControlName="secondCtrl" required>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperNext>Next Step</button>
+            </div>
+        </form>
+    </mat-step>
+</mat-horizontal-stepper>
